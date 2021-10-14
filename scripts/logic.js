@@ -28,14 +28,28 @@ function operate(operator, a, b) {
 		case '/':
 			divide(a, b);
 			break;
-        case "=":
-            return
+		case '=':
+			return;
 	}
 	return;
 }
 
+function input(a) {
+	let num = result.textContent;
+	let value = a.dataset.value;
+	let newNum = num + value;
+
+	if (!result.textContent.includes('.')) {
+		result.textContent = parseFloat(newNum);
+	} else {
+		result.textContent = newNum;
+	}
+	clear.textContent = 'C';
+}
+
 const clear = document.querySelector('#clear');
 const result = document.querySelector('#span-result');
+const deci = document.querySelector('#deci');
 const num = document.getElementsByClassName('num');
 const DOMoperator = document.getElementsByClassName('operator');
 let num1;
@@ -44,21 +58,26 @@ let operator = null;
 
 for (let n of Array.from(num)) {
 	n.addEventListener('click', function () {
-		let value = n.dataset.value;
-		let text = document.createTextNode(value);
-		result.appendChild(text);
-		a = result.textContent;
+		input(n)
 	});
 }
+
+deci.addEventListener('click', function () {
+	if (!result.textContent.includes('.')) {
+		result.textContent += deci.dataset.value;
+	}
+});
 
 for (let op of Array.from(DOMoperator)) {
 	op.addEventListener('click', function () {
 		operator = op.dataset.value;
+        num1 = result.textContent;
 	});
 }
 
 clear.addEventListener('click', function () {
 	result.textContent = '0';
+	clear.textContent = 'AC';
 	operator = null;
 });
 
