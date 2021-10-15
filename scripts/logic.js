@@ -34,8 +34,8 @@ function operate(operator, a, b) {
 	return;
 }
 
-function input(a) {
-	let num = result.textContent;
+function input(a,initialNum) {
+	let num = initialNum;
 	let value = a.dataset.value;
 	let newNum = num + value;
 
@@ -52,13 +52,13 @@ const result = document.querySelector('#span-result');
 const deci = document.querySelector('#deci');
 const num = document.getElementsByClassName('num');
 const DOMoperator = document.getElementsByClassName('operator');
-let num1;
-let num2;
-let operator = null;
+let num1 = '';
+let num2 = '';
+let operator = '';
 
 for (let n of Array.from(num)) {
 	n.addEventListener('click', function () {
-		input(n)
+		input(n,result.textContent);
 	});
 }
 
@@ -75,11 +75,12 @@ for (let op of Array.from(DOMoperator)) {
 	});
 }
 
+
+
 clear.addEventListener('click', function () {
 	result.textContent = '0';
 	clear.textContent = 'AC';
-	operator = null;
+	operator = '';
+	num1 = '';
+	num2 = '';
 });
-
-if (!!operator) {
-}
