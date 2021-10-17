@@ -8,7 +8,7 @@
 		<meta name="description" content="" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="stylesheet" href="./styles/styles.css" />
-		<script src="./scripts/logic.js" defer></script>
+		<script src="./scripts/main.js" defer></script>
 	</head>
 	<body>
 		<div id="container">
@@ -17,13 +17,13 @@
 			</div>
 			<div id="input">
 				<div id="clear" class="special-op btn">AC</div>
-				<div class="special-op btn">+/-</div>
-				<div class="special-op btn">%</div>
+				<div id="plusMinus" class="special-op btn">+/-</div>
+				<div id="percent" class="special-op btn" data-value="%">%</div>
 				<div class="operator btn" data-value="/">÷</div>
 				<div class="btn num" data-value="7">7</div>
 				<div class="btn num" data-value="8">8</div>
 				<div class="btn num" data-value="9">9</div>
-				<div class="operator btn" data-value="x">x</div>
+				<div class="operator btn" data-value="*">x</div>
 				<div class="btn num" data-value="4">4</div>
 				<div class="btn num" data-value="5">5</div>
 				<div class="btn num" data-value="6">6</div>
@@ -34,7 +34,7 @@
 				<div class="operator btn" data-value="+">+</div>
 				<div id="zero" class="btn num" data-value="0">0</div>
 				<div id="deci" class="btn" data-value=".">.</div>
-				<div class="operator btn" data-value="=">=</div>
+				<div id="equal" class="btn" data-value="=">=</div>
 			</div>
 		</div>
 	</body>
