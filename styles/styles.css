@@ -86,6 +86,18 @@ html {
 	justify-self: center;
 }
 
+/* .special-op:active {
+	background-color: var(--clr-neutral-100);
+}
+
+.special-op:not(:active) {
+	animation: fadebackground 2s infinite;
+  }
+  @keyframes fadebackground {
+	from {background-color: var(--clr-neutral-100);}
+	to {background-color: var(--clr-primary-200);}
+  } */
+
 @media screen and (min-width: 768px) {
 	#container {
 		height: 37em;

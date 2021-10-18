@@ -96,6 +96,7 @@ const deci = document.querySelector('#deci');
 const equal = document.querySelector('#equal');
 const num = document.getElementsByClassName('num');
 const DOMoperator = document.getElementsByClassName('operator');
+const specialOp = document.getElementsByClassName('special-op');
 let num1 = '';
 let num2 = '';
 let operator = '';
@@ -171,5 +172,15 @@ document.addEventListener('keydown', function (e) {
 		case 'Enter':
 			equalBtn();
 			break;
+	}
+
+	for (let s of Array.from(specialOp)) {
+		s.style.backgroundColor = '#FFF';
+	}
+});
+
+document.addEventListener('keyup', function (e) {
+	for (let s of Array.from(specialOp)) {
+		s.style.backgroundColor = '#d4d4d2';
 	}
 });
