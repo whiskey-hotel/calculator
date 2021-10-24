@@ -1,17 +1,17 @@
 function add(a, b) {
-	return a + b;
+	return parseFloat((a + b).toPrecision(9));
 }
 
 function subtract(a, b) {
-	return a - b;
+	return parseFloat((a - b).toPrecision(9));
 }
 
 function multiply(a, b) {
-	return a * b;
+	return parseFloat((a * b).toPrecision(9));
 }
 
 function divide(a, b) {
-	return a / b;
+	return parseFloat((a / b).toPrecision(9));
 }
 
 function operate(operator, a, b) {
@@ -39,7 +39,9 @@ function input(val, initialNum) {
 	let newNum = num + value;
 
 	//removes the leading zero
-	if (!result.textContent.includes('.')) {
+	if (result.textContent.length > 8) {
+		return;
+	} else if (!result.textContent.includes('.')) {
 		result.textContent = parseFloat(newNum);
 	} else {
 		result.textContent = newNum;
@@ -59,6 +61,9 @@ function operationSelector(opVal) {
 }
 
 function deciBtn() {
+	if (result.textContent.length > 8) {
+		return;
+	}
 	if (!result.textContent.includes('.')) {
 		result.textContent += deci.dataset.value;
 	}
@@ -72,9 +77,31 @@ function equalBtn() {
 }
 
 function percentBtn() {
+	if (result.textContent.length > 8) {
+		return;
+	}
 	let a = parseFloat(result.textContent);
 	a /= 100;
 	result.textContent = a;
+}
+
+function clearBtn() {
+	if (clearCount == 0) {
+		clearCount += 1;
+		result.textContent = '0';
+	} else if (clearCount == 1) {
+		result.textContent = '0';
+		clear.textContent = 'AC';
+		operator = '';
+		num1 = '';
+		num2 = '';
+		count = 0;
+		clearCount = 0;
+		for (let op of Array.from(DOMoperator)) {
+			op.style.backgroundColor = '#ff9500';
+			op.style.color = '#FFF';
+		}
+	}
 }
 
 function num2Prep() {
@@ -101,6 +128,7 @@ let num1 = '';
 let num2 = '';
 let operator = '';
 let count = 0;
+let clearCount = 0;
 
 for (let n of Array.from(num)) {
 	//on click
@@ -113,6 +141,7 @@ for (let n of Array.from(num)) {
 	//on keyboard event
 	document.addEventListener('keydown', function (e) {
 		if (e.key == n.dataset.value) {
+			n.style.backgroundColor = '#d4d4d2';
 			if (num1) {
 				num2Prep();
 			}
@@ -133,6 +162,8 @@ for (let op of Array.from(DOMoperator)) {
 	//on keyboard event
 	document.addEventListener('keydown', function (e) {
 		if (e.key == op.dataset.value) {
+			op.style.backgroundColor = '#FFF';
+			op.style.color = '#ff9500';
 			operationSelector(e.key);
 		}
 	});
@@ -153,12 +184,7 @@ percent.addEventListener('click', function () {
 });
 
 clear.addEventListener('click', function () {
-	result.textContent = '0';
-	clear.textContent = 'AC';
-	operator = '';
-	num1 = '';
-	num2 = '';
-	count = 0;
+	clearBtn();
 });
 
 document.addEventListener('keydown', function (e) {
@@ -167,15 +193,27 @@ document.addEventListener('keydown', function (e) {
 			percentBtn();
 			break;
 		case deci.dataset.value:
+			deci.style.backgroundColor = '#d4d4d2';
 			deciBtn();
 			break;
 		case 'Enter':
+			for (let op of Array.from(DOMoperator)) {
+				op.style.backgroundColor = '#ff9500';
+				op.style.color = '#FFF';
+			}
+			equal.style.backgroundColor = '#FFF';
+			equal.style.color = '#ff9500';
 			equalBtn();
+			break;
+		case 'c':
+			clearBtn();
 			break;
 	}
 
 	for (let s of Array.from(specialOp)) {
-		s.style.backgroundColor = '#FFF';
+		if (e.key == s.dataset.value) {
+			s.style.backgroundColor = '#FFF';
+		}
 	}
 });
 
@@ -183,4 +221,13 @@ document.addEventListener('keyup', function (e) {
 	for (let s of Array.from(specialOp)) {
 		s.style.backgroundColor = '#d4d4d2';
 	}
+
+	for (let n of Array.from(num)) {
+		n.style.backgroundColor = '#505050';
+	}
+
+	deci.style.backgroundColor = '#505050';
+
+	equal.style.backgroundColor = '#ff9500';
+	equal.style.color = '#FFF';
 });
