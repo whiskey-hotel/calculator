@@ -132,72 +132,43 @@ let count = 0;
 let clearCount = 0;
 
 for (let n of Array.from(num)) {
-	//on click
-	n.addEventListener('click', function () {
-		if (num1) {
-			num2Prep();
-		}
-		input(n.dataset.value, result.textContent);
-	});
-	//on keyboard event
-	document.addEventListener('keydown', function (e) {
-		if (e.key == n.dataset.value) {
-			n.style.backgroundColor = '#d4d4d2';
-			if (num1) {
-				num2Prep();
+	['keydown', 'mousedown'].forEach(function (e) {
+		document.addEventListener(e, function (e) {
+			if (e.key == n.dataset.value || e.target.dataset.value == n.dataset.value) {
+				n.style.backgroundColor = '#d4d4d2';
+				if (num1) {
+					num2Prep();
+				}
+				input(n.dataset.value, result.textContent);
 			}
-			input(e.key, result.textContent);
-		}
+		});
 	});
 }
 
-deci.addEventListener('click', function () {
-	deciBtn();
+['keydown', 'mousedown'].forEach(function (e) {
+	document.addEventListener(e, function (e) {
+		if (e.key == deci.dataset.value || e.target.dataset.value == deci.dataset.value) {
+			deci.style.backgroundColor = '#d4d4d2';
+			deciBtn();
+		}
+	});
 });
 
 for (let op of Array.from(DOMoperator)) {
-	//on click
-	op.addEventListener('click', function () {
-		operationSelector(op.dataset.value);
-	});
-	//on keyboard event
-	document.addEventListener('keydown', function (e) {
-		if (e.key == op.dataset.value) {
-			op.style.backgroundColor = '#FFF';
-			op.style.color = '#ff9500';
-			operationSelector(e.key);
-		}
+	['keydown', 'mousedown'].forEach(function (e) {
+		document.addEventListener(e, function (e) {
+			if (e.key == op.dataset.value || e.target.dataset.value == op.dataset.value) {
+				op.style.backgroundColor = '#FFF';
+				op.style.color = '#ff9500';
+				operationSelector(op.dataset.value);
+			}
+		});
 	});
 }
 
-equal.addEventListener('click', function () {
-	equalBtn();
-});
-
-plusMinus.addEventListener('click', function () {
-	let a = parseFloat(result.textContent);
-	a *= -1;
-	result.textContent = a;
-});
-
-percent.addEventListener('click', function () {
-	percentBtn();
-});
-
-clear.addEventListener('click', function () {
-	clearBtn();
-});
-
-document.addEventListener('keydown', function (e) {
-	switch (e.key) {
-		case '%':
-			percentBtn();
-			break;
-		case deci.dataset.value:
-			deci.style.backgroundColor = '#d4d4d2';
-			deciBtn();
-			break;
-		case 'Enter':
+['keydown', 'mousedown'].forEach(function (e) {
+	document.addEventListener(e, function (e) {
+		if (e.key == 'Enter' || e.key == '=' || e.target.dataset.value == '=') {
 			for (let op of Array.from(DOMoperator)) {
 				op.style.backgroundColor = '#ff9500';
 				op.style.color = '#FFF';
@@ -205,30 +176,48 @@ document.addEventListener('keydown', function (e) {
 			equal.style.backgroundColor = '#FFF';
 			equal.style.color = '#ff9500';
 			equalBtn();
-			break;
-		case 'c':
-			clearBtn();
-			break;
-	}
-
-	for (let s of Array.from(specialOp)) {
-		if (e.key == s.dataset.value) {
-			s.style.backgroundColor = '#FFF';
 		}
-	}
+	});
 });
 
-document.addEventListener('keyup', function (e) {
-	for (let s of Array.from(specialOp)) {
-		s.style.backgroundColor = '#d4d4d2';
-	}
+plusMinus.addEventListener('mousedown', function () {
+	plusMinus.style.backgroundColor = '#FFF';
+	let a = parseFloat(result.textContent);
+	a *= -1;
+	result.textContent = a;
+});
 
-	for (let n of Array.from(num)) {
-		n.style.backgroundColor = '#505050';
-	}
+['keydown', 'mousedown'].forEach(function (e) {
+	document.addEventListener(e, function (e) {
+		if (e.key == '%' || e.target.dataset.value == '%') {
+			percent.style.backgroundColor = '#FFF';
+			percentBtn();
+		}
+	});
+});
 
-	deci.style.backgroundColor = '#505050';
+['keydown', 'mousedown'].forEach(function (e) {
+	document.addEventListener(e, function (e) {
+		if (e.key == 'c' || e.target.dataset.value == 'c') {
+			clear.style.backgroundColor = '#FFF';
+			clearBtn();
+		}
+	});
+});
 
-	equal.style.backgroundColor = '#ff9500';
-	equal.style.color = '#FFF';
+['keyup', 'mouseup'].forEach(function (e) {
+	document.addEventListener(e, function (e) {
+		for (let s of Array.from(specialOp)) {
+			s.style.backgroundColor = '#d4d4d2';
+		}
+
+		for (let n of Array.from(num)) {
+			n.style.backgroundColor = '#505050';
+		}
+
+		deci.style.backgroundColor = '#505050';
+
+		equal.style.backgroundColor = '#ff9500';
+		equal.style.color = '#FFF';
+	});
 });
