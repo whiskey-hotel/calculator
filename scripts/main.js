@@ -132,7 +132,7 @@ let count = 0;
 let clearCount = 0;
 
 for (let n of Array.from(num)) {
-	['keydown', 'mousedown'].forEach(function (e) {
+	['keydown', 'mousedown', 'touchstart'].forEach(function (e) {
 		document.addEventListener(e, function (e) {
 			if (e.key == n.dataset.value || e.target.dataset.value == n.dataset.value) {
 				n.style.backgroundColor = '#d4d4d2';
@@ -145,7 +145,7 @@ for (let n of Array.from(num)) {
 	});
 }
 
-['keydown', 'mousedown'].forEach(function (e) {
+['keydown', 'mousedown', 'touchstart'].forEach(function (e) {
 	document.addEventListener(e, function (e) {
 		if (e.key == deci.dataset.value || e.target.dataset.value == deci.dataset.value) {
 			deci.style.backgroundColor = '#d4d4d2';
@@ -155,7 +155,7 @@ for (let n of Array.from(num)) {
 });
 
 for (let op of Array.from(DOMoperator)) {
-	['keydown', 'mousedown'].forEach(function (e) {
+	['keydown', 'mousedown', 'touchstart'].forEach(function (e) {
 		document.addEventListener(e, function (e) {
 			if (e.key == op.dataset.value || e.target.dataset.value == op.dataset.value) {
 				op.style.backgroundColor = '#FFF';
@@ -166,7 +166,7 @@ for (let op of Array.from(DOMoperator)) {
 	});
 }
 
-['keydown', 'mousedown'].forEach(function (e) {
+['keydown', 'mousedown', 'touchstart'].forEach(function (e) {
 	document.addEventListener(e, function (e) {
 		if (e.key == 'Enter' || e.key == '=' || e.target.dataset.value == '=') {
 			for (let op of Array.from(DOMoperator)) {
@@ -180,14 +180,16 @@ for (let op of Array.from(DOMoperator)) {
 	});
 });
 
-plusMinus.addEventListener('mousedown', function () {
-	plusMinus.style.backgroundColor = '#FFF';
-	let a = parseFloat(result.textContent);
-	a *= -1;
-	result.textContent = a;
+['mousedown', 'touchstart'].forEach(function (e) {
+	plusMinus.addEventListener(e, function () {
+		plusMinus.style.backgroundColor = '#FFF';
+		let a = parseFloat(result.textContent);
+		a *= -1;
+		result.textContent = a;
+	});
 });
 
-['keydown', 'mousedown'].forEach(function (e) {
+['keydown', 'mousedown', 'touchstart'].forEach(function (e) {
 	document.addEventListener(e, function (e) {
 		if (e.key == '%' || e.target.dataset.value == '%') {
 			percent.style.backgroundColor = '#FFF';
@@ -196,7 +198,7 @@ plusMinus.addEventListener('mousedown', function () {
 	});
 });
 
-['keydown', 'mousedown'].forEach(function (e) {
+['keydown', 'mousedown', 'touchstart'].forEach(function (e) {
 	document.addEventListener(e, function (e) {
 		if (e.key == 'c' || e.target.dataset.value == 'c') {
 			clear.style.backgroundColor = '#FFF';
@@ -205,7 +207,7 @@ plusMinus.addEventListener('mousedown', function () {
 	});
 });
 
-['keyup', 'mouseup'].forEach(function (e) {
+['keyup', 'mouseup', 'touchend'].forEach(function (e) {
 	document.addEventListener(e, function (e) {
 		for (let s of Array.from(specialOp)) {
 			s.style.backgroundColor = '#d4d4d2';
