@@ -38,7 +38,8 @@ function input(val, initialNum) {
 	let value = val;
 	let newNum = num + value;
 
-	//removes the leading zero
+	//limits input to 8 digits
+	// and removes the leading zero
 	if (result.textContent.length > 8) {
 		return;
 	} else if (!result.textContent.includes('.')) {
